@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,13 +9,22 @@ using DevExpress.Spreadsheet;
 namespace TextExtraction {
     class Program {
         static void Main(string[] args) {
+            Stopwatch sw = new Stopwatch();
             using (Workbook workbook = new Workbook()) {
+                sw.Start();
                 workbook.LoadDocument("sample.xlsx");
+                sw.Stop();
+                var loadTime = sw.Elapsed;
+                sw.Restart();
                 var query = GetCellDisplayText(workbook)
                     .Union(GetChartTitles(workbook))
                     .Union(GetShapeText(workbook));
                 foreach (string str in query)
                     Console.WriteLine(str);
+                sw.Stop();
+                var extractTime = sw.Elapsed;
+                Console.WriteLine($"Load {loadTime}");
+                Console.WriteLine($"Extract {extractTime}");
                 Console.ReadLine();
             }
         }
