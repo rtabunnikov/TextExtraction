@@ -12,23 +12,24 @@ namespace TextExtraction {
             Stopwatch sw = new Stopwatch();
             using (Workbook workbook = new Workbook()) {
                 sw.Start();
-                workbook.LoadDocument("c:\\test\\_bigFile.xlsx");
+                workbook.LoadDocument("sample.xlsx");
                 sw.Stop();
                 var loadTime = sw.Elapsed;
                 sw.Restart();
-                
+
                 // Uncomment if you need unique strings
                 //var query = GetCellDisplayText(workbook)
                 //    .Union(GetChartTitles(workbook))
                 //    .Union(GetShapeText(workbook));
-                
+
                 // Comment if don't need unique strings
                 var query = GetCellDisplayText(workbook)
                     .Concat(GetChartTitles(workbook))
                     .Concat(GetShapeText(workbook));
-                
+
                 foreach (string str in query)
                     Console.WriteLine(str);
+
                 sw.Stop();
                 var extractTime = sw.Elapsed;
                 Console.WriteLine($"Load {loadTime}");
