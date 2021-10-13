@@ -39,6 +39,7 @@ namespace TextExtraction {
 
         static IEnumerable<string> GetShapeText(Workbook workbook) =>
              workbook.Worksheets.SelectMany(x => x.Shapes
+                .Flatten()
                 .Where(s => s.ShapeType == ShapeType.Shape && s.ShapeText.HasText)
                 .Select(s => s.ShapeText.Characters().Text));
 
