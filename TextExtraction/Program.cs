@@ -22,7 +22,7 @@ namespace TextExtraction {
                 //    .Union(GetChartTitles(workbook))
                 //    .Union(GetShapeText(workbook));
 
-                // Comment if don't need unique strings
+                // Comment if you don't need unique strings
                 var query = GetCellDisplayText(workbook)
                     .Concat(GetChartTitles(workbook))
                     .Concat(GetShapeText(workbook));
